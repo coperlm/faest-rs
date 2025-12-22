@@ -43,8 +43,7 @@ where
     pub fn to_bytes(&self) -> Vec<u8> {
         let bincode_cfg = bincode::config::standard()
             .with_little_endian()
-            .with_fixed_int_encoding()
-            .skip_fixed_array_length();
+            .with_fixed_int_encoding();
         bincode::encode_to_vec(self, bincode_cfg).unwrap()
     }
 }
@@ -103,8 +102,7 @@ where
     fn sign(mut self, message: &[u8]) -> Self::Signature {
         let bincode_cfg = bincode::config::standard()
             .with_little_endian()
-            .with_fixed_int_encoding()
-            .skip_fixed_array_length();
+            .with_fixed_int_encoding();
 
         let commitment = self.prover.commit();
         let h1 = {
@@ -178,8 +176,7 @@ where
     fn verify(mut self, signature: &Self::Signature, message: &[u8]) -> bool {
         let bincode_cfg = bincode::config::standard()
             .with_little_endian()
-            .with_fixed_int_encoding()
-            .skip_fixed_array_length();
+            .with_fixed_int_encoding();
 
         let Self::Signature {
             commitment,
